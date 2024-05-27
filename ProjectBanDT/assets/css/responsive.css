@@ -1,0 +1,102 @@
+/* Mobile và Tablet */
+@media (max-width: 1023px){
+    :root{
+        --navbar-height: 0px;
+        --header-height: 68px;
+    }
+    .hide-on-mobile-tablet{
+        display: none;
+    }
+    .header{
+        position: fixed;
+        z-index: 2;
+        width: 100%;
+        top: 0;
+    }
+    .app__container{
+        margin-top: calc(var(--header-height) + var(--header-sort-bar-height));
+    }
+    .header__cart-list {
+        position: fixed;
+        z-index: 2;
+        top: var(--header-height);
+        right: 0;
+        width: 100%;
+        padding: 0 calc((100% - 644px)/2);
+        
+    }
+    .header__cart-heading {
+        text-align: left;
+    }
+
+    .header__cart-list::after{
+        display: none;
+    }
+
+    .header__sort-bar{
+        display: flex;
+    }
+}
+
+/* Tablet */
+@media (max-width: 1023px) and (min-width:740px){
+    .hide-on-tablet{
+        display: none;
+    }
+    .header__cart {
+        width: 80px;
+        text-align: right;
+    }
+}
+
+
+/* Mobile  */
+@media (max-width: 739px){
+    .hide-on-mobile{
+        display: none;
+    }
+
+    .pagination-item {
+        margin-left: 3px;
+    }
+    .header-with-search{
+        justify-content: space-between;
+    }
+    .header__logo,
+    .header__cart{
+        min-width: unset;
+    }
+    .header__search-checkbox:checked ~ .header__search{
+        display: flex;
+    }
+    .header__search-checkbox:checked ~ .modal__mobile-overlay{
+        display: block;
+    }
+    .header__mobile-search-icon {
+        font-size: 2.6rem;
+        display: block;
+    }
+    .header__search {
+        top: var(--header-height);
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        right: 0;
+        height: 40px;
+        flex: 1;
+        padding: 0 5px;
+        animation: mobileSearchSideIn linear 0.3s ;
+        display: none;
+    }
+    
+    @keyframes mobileSearchSideIn {
+        from{
+            opacity: 0;
+            top: calc(var(--header-height) / 2);
+        }
+        to{
+            opacity: 1;
+            top: var(--header-height);
+        }
+    }
+}

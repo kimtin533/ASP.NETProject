@@ -1,0 +1,94 @@
+﻿
+<head>
+    <script>
+        function validateForm() {
+            
+            var displayName = document.getElementsByName("DISPLAYNAME")[0].value;
+            var email = document.getElementsByName("USERNAME")[0].value;
+            var password = document.getElementsByName("PASSWORD")[0].value;
+            var confirmPassword = document.getElementsByName("CONFIRM_PASSWORD")[0].value;
+
+            // Kiểm tra email hợp lệ bằng regex
+            var emailRegex = /^[a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!email.match(emailRegex)) {
+                alert("Vui lòng nhập địa chỉ email hợp lệ.");
+                return false;
+            }
+
+            // Kiểm tra mật khẩu có ít nhất 6 ký tự
+            if (password.length < 6) {
+                alert("Mật khẩu phải có ít nhất 6 ký tự.");
+                return false;
+            }
+
+            // Kiểm tra xác nhận mật khẩu
+            if (password !== confirmPassword) {
+                alert("Mật khẩu và xác nhận mật khẩu không trùng khớp.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<div class="modal">
+    <div class="modal__overlay" style="background-color:white; background-image: url('https://mpos.vn/public/news/c7cda9cf-be24-49c2-a799-e08a5cf69e11_800x500%20(40).png'); background-repeat: no-repeat; background-size: cover;"></div>
+
+    <div class="modal__body">
+
+        <div class="auth-form">
+            <form class="auth-from__container" action="SignUp" method="post" onsubmit="return validateForm()">
+                <div class="auth-form__header">
+                    <h3 class="auth-form__heading">Đăng ký</h3>
+                    <a href="Login" class="auth-form__switch-btn">Đăng nhập</a>
+                </div>
+                <div class="auth-form__form">
+                    <div class="auth-form__group">
+                        <input class="auth-form__input" name="DISPLAYNAME" placeholder="Họ và Tên" type="text">
+                    </div>
+                    <div class="auth-form__group">
+                        <input class="auth-form__input" name="USERNAME" placeholder="Email của bạn" type="text">
+                    </div>
+                    <div class="auth-form__group">
+                        <input class="auth-form__input" name="PASSWORD" placeholder="Mật khẩu" type="password">
+                    </div>
+                    <div class="auth-form__group">
+                        <input class="auth-form__input" name="CONFIRM_PASSWORD" placeholder="Nhập lại mật khẩu" type="password">
+                    </div>
+                </div>
+                <div class="auth-form__aside">
+                    <p class="auth-form__policy-text">
+                        Bằng việc đăng kí, bạn đã đồng ý với CellPhoneS về
+                        <a href="" class="auth-form__text-link">
+                            Điều khoản dịch vụ
+                        </a>
+                        &
+                        <a href="" class="auth-form__text-link">
+                            Chính sách bảo mật
+                        </a>
+                    </p>
+                </div>
+                <div class="auth-form__controls">
+                    <a href="/" class="btn auth-form__controls-back btn--normal">TRỞ LẠI</a>
+                    <button class="btn btn--primary" type="submit">ĐĂNG KÝ</button>
+                </div>
+            </form>
+            <div class="auth-form__social">
+                <a href="" class="btn btn--size-s btn--with-icon auth-form__social--facebook">
+                    <i class="auth-form__social-icon fa-brands fa-square-facebook"></i>
+                    <span class="auth-form__social-title">Kết nối với Facebook</span>
+                </a>
+                <a href="" class="btn btn--size-s btn--with-icon auth-form__social--google">
+                    <i class="auth-form__social-icon fa-brands fa-google"></i>
+                    <span class="auth-form__social-title">
+                        Kết nối với Google
+
+                    </span>
+                </a>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

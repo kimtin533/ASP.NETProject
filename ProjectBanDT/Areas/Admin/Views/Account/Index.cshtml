@@ -1,0 +1,114 @@
+﻿
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+    @*<link href="~/assets/css/grid.css" type="text/css"/>*@
+</head>
+<body>
+
+    <div class="grid wide">
+        <div class="row" style="margin-top:20px">
+            <a href="/Admin/Account/Add" style="text-decoration:none; font-size:20px; border: 1px solid #000000; background-color:red; color:white; font-weight:400; border-radius: 8px; height:50px;text-align:center;line-height:30px ;width:200px">
+                Thêm tài khoản
+            </a>
+            <table>
+                <tr>
+
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Loại</th>
+                    <th>Mật Khẩu</th>
+                    <th>Tùy chỉnh</th>
+                </tr>
+                @{ foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(item.DISPLAYNAME)</td>
+
+                            <td>@(item.USERNAME)</td>
+                            <td>
+                                @if (item.TYPE == 1)
+                                {
+                                    <span>Admin</span>
+                                }
+                                else
+                                {
+                                    <span>Khách hàng</span>
+                                }
+                            </td>
+                            <td>
+                                <input type="password" id="passwordInput@(item.USERNAME)" value="@(item.PASSWORD)">
+                                <button onclick="togglePasswordVisibility('passwordInput@(item.USERNAME)')">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </td>
+
+                            <td>
+                                <a href="/Admin/Account/Edit?ID=@item.USERNAME">
+                                    Sửa
+                                </a>
+                                <a style="margin-left:20px" href="/Admin/Account/Delete?ID=@item.USERNAME">
+                                    Xóa
+                                </a>
+                            </td>
+                            
+                        </tr>
+                        <script>
+                            function togglePasswordVisibility(inputId) {
+                                var passwordInput = document.getElementById(inputId);
+                                var buttonIcon = passwordInput.nextElementSibling.querySelector('i');
+
+                                if (passwordInput.type === 'password') {
+                                    passwordInput.type = 'text';
+                                    buttonIcon.classList.remove('fa-eye');
+                                    buttonIcon.classList.add('fa-eye-slash');
+                                } else {
+                                    passwordInput.type = 'password';
+                                    buttonIcon.classList.remove('fa-eye-slash');
+                                    buttonIcon.classList.add('fa-eye');
+                                }
+                            }
+                        </script>
+                        
+                    }
+
+                }
+
+                <!-- Thêm các dòng khác tương tự ở đây -->
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

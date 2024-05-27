@@ -1,0 +1,105 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        br {
+            margin: 10px 0;
+        }
+
+        form {
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f7f7f7;
+            width: 600px;
+        }
+
+        .title {
+            width: 200px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        .ipadd {
+            vertical-align: middle;
+            padding: 5px;
+            width: 180px;
+        }
+
+        form > input,
+        form > select {
+            display: inline-block;
+            max-width: 180px;
+            font-size: 14px;
+        }
+
+        select {
+            width: 100%;
+            padding: 5px;
+        }
+
+        input[type="radio"] {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid wide">
+        <form action="/Admin/Admin/Edit" method="post" enctype="multipart/form-data">
+            <label for="" class="title">Tên sản phẩm:</label>
+            <input required type="text" name="TENSP" class="ipadd" value="@(Model.TENSP)">
+            <br>
+            <label for="" class="title">Hãng Sản xuất:</label>
+            <Select name="IDHANG">
+                <option value="1" @(Model.IDHANG == 1 ? "selected" : "")>Apple</option>
+                <option value="2" @(Model.IDHANG == 2 ? "selected" : "")>Samsung</option>
+                <option value="3" @(Model.IDHANG == 3 ? "selected" : "")>Xiaomi</option>
+
+            </Select>
+            <br>
+            <label for="" class="title">Giá gốc:</label>
+            <input required name="GIAGOC" type="number" class="ipadd" minlength="5" maxlength="8" value="@(Model.GIAGOC)">
+            <br>
+            <label for="" class="title">Giá:</label>
+            <input required name="GIA" type="number" class="ipadd" minlength="5" maxlength="8" value="@(Model.GIA)">
+            <br>
+            <label for="" class="title">Tình trạng:</label>
+            <input type="radio" name="TINHTRANG" id="MOI" value="Mới" checked>Mới
+            <input type="radio" name="TINHTRANG" id="CU" value="Cũ">Cũ
+            <br>
+            <label for="" class="title">Hình ảnh:</label>
+            <input required name="ID" type="number" hidden value="@Model.ID" />
+            <input required type="file" name="HINHANH" id="" value="@(Model.HINHANH)">
+            <img id="image_upload_preview" src="@("/images/" + Model.HINHANH)" alt="Alternate Text" width="200" height="200" />
+            <button style="text-decoration:none; font-size:20px; border: 1px solid #000000; background-color:red; color:white; font-weight:400; border-radius: 8px; height:50px;text-align:center;line-height:30px ;width:200px">
+                Cập nhật
+            </button>
+        </form>
+    </div>
+</body>
+</html>

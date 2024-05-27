@@ -1,0 +1,561 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QLDTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GIOHANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDTAIKHOAN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDSANPHAM" Type="int" Nullable="false" />
+          <Property Name="SOLUONG" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HANGSX">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENHANG" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HOADON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGAYMUA" Type="date" Nullable="false" />
+          <Property Name="TINHTRANG" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDTAIKHOAN" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SANPHAM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENSP" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDHANG" Type="int" Nullable="false" />
+          <Property Name="GIAGOC" Type="float" Nullable="false" />
+          <Property Name="GIA" Type="float" Nullable="false" />
+          <Property Name="HINHANH" Type="varchar" MaxLength="200" />
+          <Property Name="TINHTRANG" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TAIKHOAN">
+          <Key>
+            <PropertyRef Name="USERNAME" />
+          </Key>
+          <Property Name="DISPLAYNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="USERNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="TYPE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TTHOADON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDHOADON" Type="int" Nullable="false" />
+          <Property Name="IDSANPHAM" Type="int" Nullable="false" />
+          <Property Name="SOLUONG" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__GIOHANG__IDSANPH__5BE2A6F2">
+          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1" />
+          <End Role="GIOHANG" Type="Self.GIOHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SANPHAM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GIOHANG">
+              <PropertyRef Name="IDSANPHAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GIOHANG__IDTAIKH__5AEE82B9">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="1" />
+          <End Role="GIOHANG" Type="Self.GIOHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="GIOHANG">
+              <PropertyRef Name="IDTAIKHOAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HOADON__IDTAIKHO__04E4BC85">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="1" />
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="HOADON">
+              <PropertyRef Name="IDTAIKHOAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TTHOADON__IDHOAD__09A971A2">
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="1" />
+          <End Role="TTHOADON" Type="Self.TTHOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOADON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TTHOADON">
+              <PropertyRef Name="IDHOADON" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TTHOADON__IDSANP__08B54D69">
+          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1" />
+          <End Role="TTHOADON" Type="Self.TTHOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SANPHAM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TTHOADON">
+              <PropertyRef Name="IDSANPHAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IDHANG">
+          <End Role="HANGSX" Type="Self.HANGSX" Multiplicity="1" />
+          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HANGSX">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SANPHAM">
+              <PropertyRef Name="IDHANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="QLDTModelStoreContainer">
+          <EntitySet Name="GIOHANG" EntityType="Self.GIOHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HANGSX" EntityType="Self.HANGSX" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HOADON" EntityType="Self.HOADON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SANPHAM" EntityType="Self.SANPHAM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TTHOADON" EntityType="Self.TTHOADON" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__GIOHANG__IDSANPH__5BE2A6F2" Association="Self.FK__GIOHANG__IDSANPH__5BE2A6F2">
+            <End Role="SANPHAM" EntitySet="SANPHAM" />
+            <End Role="GIOHANG" EntitySet="GIOHANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GIOHANG__IDTAIKH__5AEE82B9" Association="Self.FK__GIOHANG__IDTAIKH__5AEE82B9">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="GIOHANG" EntitySet="GIOHANG" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HOADON__IDTAIKHO__04E4BC85" Association="Self.FK__HOADON__IDTAIKHO__04E4BC85">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+            <End Role="HOADON" EntitySet="HOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TTHOADON__IDHOAD__09A971A2" Association="Self.FK__TTHOADON__IDHOAD__09A971A2">
+            <End Role="HOADON" EntitySet="HOADON" />
+            <End Role="TTHOADON" EntitySet="TTHOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TTHOADON__IDSANP__08B54D69" Association="Self.FK__TTHOADON__IDSANP__08B54D69">
+            <End Role="SANPHAM" EntitySet="SANPHAM" />
+            <End Role="TTHOADON" EntitySet="TTHOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IDHANG" Association="Self.FK_IDHANG">
+            <End Role="HANGSX" EntitySet="HANGSX" />
+            <End Role="SANPHAM" EntitySet="SANPHAM" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLDTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GIOHANG">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDTAIKHOAN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDSANPHAM" Type="Int32" Nullable="false" />
+          <Property Name="SOLUONG" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SANPHAM" Relationship="Self.FK__GIOHANG__IDSANPH__44FF419A" FromRole="GIOHANG" ToRole="SANPHAM" />
+          <NavigationProperty Name="TAIKHOAN" Relationship="Self.FK__GIOHANG__IDTAIKH__440B1D61" FromRole="GIOHANG" ToRole="TAIKHOAN" />
+        </EntityType>
+        <EntityType Name="HANGSX">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENHANG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SANPHAMs" Relationship="Self.FK_IDHANG" FromRole="HANGSX" ToRole="SANPHAM" />
+        </EntityType>
+        <EntityType Name="SANPHAM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENSP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDHANG" Type="Int32" Nullable="false" />
+          <Property Name="GIA" Type="Double" Nullable="false" />
+          <Property Name="TINHTRANG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HINHANH" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GIOHANGs" Relationship="Self.FK__GIOHANG__IDSANPH__44FF419A" FromRole="SANPHAM" ToRole="GIOHANG" />
+          <NavigationProperty Name="HANGSX" Relationship="Self.FK_IDHANG" FromRole="SANPHAM" ToRole="HANGSX" />
+          <Property Name="GIAGOC" Type="Double" Nullable="false" />
+          <NavigationProperty Name="TTHOADONs" Relationship="QLDTModel.FK__TTHOADON__IDSANP__08B54D69" FromRole="SANPHAM" ToRole="TTHOADON" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TAIKHOAN">
+          <Key>
+            <PropertyRef Name="USERNAME" />
+          </Key>
+          <Property Name="DISPLAYNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TYPE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GIOHANGs" Relationship="Self.FK__GIOHANG__IDTAIKH__440B1D61" FromRole="TAIKHOAN" ToRole="GIOHANG" />
+          <NavigationProperty Name="HOADONs" Relationship="QLDTModel.FK__HOADON__IDTAIKHO__04E4BC85" FromRole="TAIKHOAN" ToRole="HOADON" />
+        </EntityType>
+        <Association Name="FK__GIOHANG__IDSANPH__44FF419A">
+          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1" />
+          <End Role="GIOHANG" Type="Self.GIOHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SANPHAM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GIOHANG">
+              <PropertyRef Name="IDSANPHAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GIOHANG__IDTAIKH__440B1D61">
+          <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="1" />
+          <End Role="GIOHANG" Type="Self.GIOHANG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="GIOHANG">
+              <PropertyRef Name="IDTAIKHOAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IDHANG">
+          <End Role="HANGSX" Type="Self.HANGSX" Multiplicity="1" />
+          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HANGSX">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SANPHAM">
+              <PropertyRef Name="IDHANG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLDTEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GIOHANGs" EntityType="Self.GIOHANG" />
+          <EntitySet Name="HANGSXes" EntityType="Self.HANGSX" />
+          <EntitySet Name="SANPHAMs" EntityType="Self.SANPHAM" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TAIKHOANs" EntityType="Self.TAIKHOAN" />
+          <AssociationSet Name="FK__GIOHANG__IDSANPH__44FF419A" Association="Self.FK__GIOHANG__IDSANPH__44FF419A">
+            <End Role="SANPHAM" EntitySet="SANPHAMs" />
+            <End Role="GIOHANG" EntitySet="GIOHANGs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GIOHANG__IDTAIKH__440B1D61" Association="Self.FK__GIOHANG__IDTAIKH__440B1D61">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
+            <End Role="GIOHANG" EntitySet="GIOHANGs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IDHANG" Association="Self.FK_IDHANG">
+            <End Role="HANGSX" EntitySet="HANGSXes" />
+            <End Role="SANPHAM" EntitySet="SANPHAMs" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(QLDTModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(QLDTModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="HOADONs" EntityType="QLDTModel.HOADON" />
+          <EntitySet Name="TTHOADONs" EntityType="QLDTModel.TTHOADON" />
+          <AssociationSet Name="FK__HOADON__IDTAIKHO__04E4BC85" Association="QLDTModel.FK__HOADON__IDTAIKHO__04E4BC85">
+            <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
+            <End Role="HOADON" EntitySet="HOADONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TTHOADON__IDHOAD__09A971A2" Association="QLDTModel.FK__TTHOADON__IDHOAD__09A971A2">
+            <End Role="HOADON" EntitySet="HOADONs" />
+            <End Role="TTHOADON" EntitySet="TTHOADONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TTHOADON__IDSANP__08B54D69" Association="QLDTModel.FK__TTHOADON__IDSANP__08B54D69">
+            <End Role="SANPHAM" EntitySet="SANPHAMs" />
+            <End Role="TTHOADON" EntitySet="TTHOADONs" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="HOADON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGAYMUA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TINHTRANG" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDTAIKHOAN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TAIKHOAN" Relationship="QLDTModel.FK__HOADON__IDTAIKHO__04E4BC85" FromRole="HOADON" ToRole="TAIKHOAN" />
+          <NavigationProperty Name="TTHOADONs" Relationship="QLDTModel.FK__TTHOADON__IDHOAD__09A971A2" FromRole="HOADON" ToRole="TTHOADON" />
+        </EntityType>
+        <EntityType Name="TTHOADON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDHOADON" Type="Int32" Nullable="false" />
+          <Property Name="IDSANPHAM" Type="Int32" Nullable="false" />
+          <Property Name="SOLUONG" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HOADON" Relationship="QLDTModel.FK__TTHOADON__IDHOAD__09A971A2" FromRole="TTHOADON" ToRole="HOADON" />
+          <NavigationProperty Name="SANPHAM" Relationship="QLDTModel.FK__TTHOADON__IDSANP__08B54D69" FromRole="TTHOADON" ToRole="SANPHAM" />
+        </EntityType>
+        <Association Name="FK__HOADON__IDTAIKHO__04E4BC85">
+          <End Type="QLDTModel.TAIKHOAN" Role="TAIKHOAN" Multiplicity="1" />
+          <End Type="QLDTModel.HOADON" Role="HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TAIKHOAN">
+              <PropertyRef Name="USERNAME" />
+            </Principal>
+            <Dependent Role="HOADON">
+              <PropertyRef Name="IDTAIKHOAN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TTHOADON__IDHOAD__09A971A2">
+          <End Type="QLDTModel.HOADON" Role="HOADON" Multiplicity="1" />
+          <End Type="QLDTModel.TTHOADON" Role="TTHOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOADON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TTHOADON">
+              <PropertyRef Name="IDHOADON" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TTHOADON__IDSANP__08B54D69">
+          <End Type="QLDTModel.SANPHAM" Role="SANPHAM" Multiplicity="1" />
+          <End Type="QLDTModel.TTHOADON" Role="TTHOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SANPHAM">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TTHOADON">
+              <PropertyRef Name="IDSANPHAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLDTModelStoreContainer" CdmEntityContainer="QLDTEntities1">
+          <EntitySetMapping Name="GIOHANGs">
+            <EntityTypeMapping TypeName="QLDTModel.GIOHANG">
+              <MappingFragment StoreEntitySet="GIOHANG">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDTAIKHOAN" ColumnName="IDTAIKHOAN" />
+                <ScalarProperty Name="IDSANPHAM" ColumnName="IDSANPHAM" />
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HANGSXes">
+            <EntityTypeMapping TypeName="QLDTModel.HANGSX">
+              <MappingFragment StoreEntitySet="HANGSX">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TENHANG" ColumnName="TENHANG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SANPHAMs">
+            <EntityTypeMapping TypeName="QLDTModel.SANPHAM">
+              <MappingFragment StoreEntitySet="SANPHAM">
+                <ScalarProperty Name="GIAGOC" ColumnName="GIAGOC" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TENSP" ColumnName="TENSP" />
+                <ScalarProperty Name="IDHANG" ColumnName="IDHANG" />
+                <ScalarProperty Name="GIA" ColumnName="GIA" />
+                <ScalarProperty Name="TINHTRANG" ColumnName="TINHTRANG" />
+                <ScalarProperty Name="HINHANH" ColumnName="HINHANH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QLDTModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAIKHOANs">
+            <EntityTypeMapping TypeName="QLDTModel.TAIKHOAN">
+              <MappingFragment StoreEntitySet="TAIKHOAN">
+                <ScalarProperty Name="DISPLAYNAME" ColumnName="DISPLAYNAME" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="QLDTModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="QLDTModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="QLDTModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="QLDTModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLDTModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="QLDTModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="QLDTModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="QLDTModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="QLDTModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="HOADONs">
+            <EntityTypeMapping TypeName="QLDTModel.HOADON">
+              <MappingFragment StoreEntitySet="HOADON">
+                <ScalarProperty Name="IDTAIKHOAN" ColumnName="IDTAIKHOAN" />
+                <ScalarProperty Name="TINHTRANG" ColumnName="TINHTRANG" />
+                <ScalarProperty Name="NGAYMUA" ColumnName="NGAYMUA" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TTHOADONs">
+            <EntityTypeMapping TypeName="QLDTModel.TTHOADON">
+              <MappingFragment StoreEntitySet="TTHOADON">
+                <ScalarProperty Name="SOLUONG" ColumnName="SOLUONG" />
+                <ScalarProperty Name="IDSANPHAM" ColumnName="IDSANPHAM" />
+                <ScalarProperty Name="IDHOADON" ColumnName="IDHOADON" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

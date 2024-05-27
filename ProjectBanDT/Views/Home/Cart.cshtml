@@ -1,0 +1,219 @@
+﻿
+
+@model List<ProjectBanDT.Models.CartItemViewModel>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #cart {
+        background-color: white;
+        padding-top: 1px;
+        margin: 120px;
+        min-height: 300px;
+        display: none;
+    }
+
+    .buyall-btn {
+        position: absolute;
+        bottom: -40px;
+        right: 30px;
+        background-color: crimson;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: none;
+    }
+
+    .cart__item--about-pay-btn {
+        display: none;
+    }
+
+    .cart-wrap {
+        position: relative;
+        width: 1000px;
+        margin: auto;
+    }
+
+    .cart--header {
+        text-align: center;
+        margin: 30px 0;
+    }
+    /* .cart__list {
+    } */
+    .cart__item {
+        position: relative;
+        display: flex;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        padding: 20px 10px;
+    }
+
+    .cart__close {
+        position: absolute;
+        top: 67%;
+        transform: translateX(-50%);
+        left: 27%;
+        cursor: pointer;
+    }
+
+        .cart__close:hover {
+            color: chocolate;
+        }
+
+    .cart__item:first-child {
+        border-top: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    .cart__item:last-child {
+        border-bottom: none;
+    }
+
+    .cart__item-img {
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+    }
+
+        .cart__item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .cart__item--about {
+        display: flex;
+        align-items: center;
+    }
+
+    .cart__item--about-info {
+        width: 700px;
+        padding: 0 60px 0 20px;
+    }
+
+    .cart__item--about-info-name {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        overflow: hidden;
+        display: block;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+    }
+
+    .cart__item--about-info-price {
+        margin: 5px 0 10px 0;
+    }
+
+    .cart__item--about-info-quantity-wrap {
+        margin-top: 15px;
+        margin-left: 10px
+    }
+
+        .cart__item--about-info-quantity-wrap span {
+            padding: 5px;
+        }
+
+            .cart__item--about-info-quantity-wrap span i {
+                color: chocolate;
+                cursor: pointer;
+            }
+
+                .cart__item--about-info-quantity-wrap span i:hover {
+                    color: coral;
+                }
+    /* .cart__item--about-pay {
+    } */
+    .cart__item--about-pay-total {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: chocolate;
+    }
+
+    .cart__item--about-pay-btn {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: coral;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .cart__item--about-pay-btn:hover {
+            background-color: chocolate;
+            color: grey;
+        }
+</style>
+<body>
+    <div id="cart pagination" style="display: block; margin-bottom:150px">
+        <div class="cart-wrap">
+            <h1 class="cart--header">GIỎ HÀNG CỦA BẠN</h1>
+            <div class="cart__list">
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var cartVd = document.getElementById("cartVd");
+
+                        if (!cartVd) {
+                            var totalPriceElement = document.querySelector(".cart__item--about-info-name.gia ");
+                            var buyButton = document.querySelector("form[action='/Home/CreateInvoice'] button.buyall-btn");
+
+                            if (totalPriceElement) {
+                                totalPriceElement.style.display = "none";
+                            }
+                            if (buyButton) {
+                                buyButton.style.display = "none";
+                            }
+                        }
+                    });
+                </script>
+                <h2 class="cart-empty" style="text-align: center; margin-top: 50px; display: none;">Giỏ hàng của bạn còn trống</h2>
+                @{
+                    foreach (var item in Model)
+                    {
+                        <div class="cart__item">
+                            <div class="cart__item-img">
+                                <img src="~/images/@item.HINHANH" alt="">
+                            </div>
+                            <div class="cart__item--about">
+                                <div class="cart__item--about-info">
+                                    <div id="cartVd" class="cart__item--about-info-name">@item.TENSP</div>
+
+                                    <div class="cart__item--about-info-quantity-wrap">
+                                        <span id="cart-minus"><i class="fa-solid fa-minus"></i></span>
+                                        <span class="cart__item--about-info-quantity">@(item.SOLUONG) Cái</span>
+                                        <span id="cart-plus"><i class="fa-solid fa-plus"></i></span>
+                                    </div>
+                                </div>
+                                <div class="cart__item--about-pay">
+
+                                    <div class="cart__item--about-pay-total">@string.Format("{0:N0} VNĐ", item.GIA)</div>
+
+                                </div>
+                            </div>
+                            <div class="cart__close" style="text-decoration: none; color: var(--primary-color); ">@Html.ActionLink("Xóa", "RemoveFromCart", new { productID = item.ID }, new { @class = "cart-remove-link" })</div>
+                        </div>
+                    }
+                }
+            </div>
+            <div>
+                <div class="cart__item--about-info-name gia" style="line-height:30px;"> Giá tổng: 
+                    <span style=" font-size:20px; color: var(--primary-color);">@string.Format("{0:N0} VNĐ", ViewBag.tongGia)</span>
+                 </div>
+                <form action="/Home/CreateInvoice" method="post">
+                    <button class="buyall-btn" style="display: block;">Đặt hàng</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

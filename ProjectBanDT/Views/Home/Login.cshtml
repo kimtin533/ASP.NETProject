@@ -1,0 +1,60 @@
+﻿
+<div class="modal">
+    <div class="modal__overlay" style="background-color: white; background-image: url('https://mpos.vn/public/news/c7cda9cf-be24-49c2-a799-e08a5cf69e11_800x500%20(40).png'); background-repeat: no-repeat; background-size: cover; "></div>
+
+    <div class="modal__body">
+
+       
+
+        <div class="auth-form">
+            @{
+                string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            }
+
+            <form action="/Home/Login" method="post">
+                <div class="auth-from__container">
+                    <div class="auth-form__header">
+                        <h3 class="auth-form__heading">Đăng nhập</h3>
+                        <a href="SignUp" class="auth-form__switch-btn">Đăng ký</a>
+                    </div>
+                    <div class="auth-form__form">
+                        <div class="auth-form__group">
+                            <input class="auth-form__input" id="email" name="TENDANGNHAP" placeholder="Email của bạn" type="text" required pattern="@pattern">
+                            <div id="email-error" style="color: red;"></div>
+                        </div>
+                        <div class="auth-form__group">
+                            <input class="auth-form__input" name="MATKHAU" placeholder="Mật khẩu của bạn" required type="password">
+                        </div>
+                    </div>
+                    <div class="auth-form__aside">
+                        <div class="auth-form__help">
+                            <a href="" class="auth-form__help-link auth-form__help-link--forgot">Quên mật khẩu</a>
+                            <span class="auth-form__help-separate"></span>
+                            <a href="" class="auth-form__help-link">Cần trợ giúp?</a>
+                        </div>
+                    </div>
+                    <div class="auth-form__controls">
+                        <button class="btn auth-form__controls-back btn--normal"><a href="/Home">TRỞ LẠI</a></button>
+                        <button class="btn btn--primary" type="submit">ĐĂNG NHẬP</button>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="auth-form__social">
+                <a href="" class="btn btn--size-s btn--with-icon auth-form__social--facebook">
+                    <i class="auth-form__social-icon fa-brands fa-square-facebook"></i>
+                    <span class="auth-form__social-title">Đăng nhập với Facebook</span>
+                </a>
+                <a href="" class="btn btn--size-s btn--with-icon auth-form__social--google">
+                    <i class="auth-form__social-icon fa-brands fa-google"></i>
+                    <span class="auth-form__social-title">
+                        Đăng nhập với Google
+
+                    </span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>

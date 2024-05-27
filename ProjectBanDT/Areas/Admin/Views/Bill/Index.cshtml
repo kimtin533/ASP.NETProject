@@ -1,0 +1,78 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+    @*<link href="~/assets/css/grid.css" type="text/css"/>*@
+</head>
+<body>
+
+    <div class="grid wide">
+        <div class="row" style="margin-top:20px">
+            
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Ngày đặt hàng</th>
+                    <th>Tài khoản</th>
+                    <th>Tình trạng</th>
+                    <th>Tùy chỉnh</th>
+                </tr>
+                @{ foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>(@item.ID) 
+                                <a href="/Admin/Bill/Info?IDHOADON=@item.ID">
+                                    Xem chi tiết
+                                </a>
+                            </td>
+                            <td>@(item.NGAYMUA)</td>
+                            <td>@(item.IDTAIKHOAN)</td>
+                            <td>@(item.TINHTRANG)</td>
+                            <td>
+                                <a href="/Admin/Bill/Comfirm?ID=@item.ID">
+                                    Xác nhận
+                                </a>
+                                <a style="margin-left:20px" href="@Url.Action("Delete", "Bill", new { ID = item.ID })">
+                                    Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                }
+
+                <!-- Thêm các dòng khác tương tự ở đây -->
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

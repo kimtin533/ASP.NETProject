@@ -1,0 +1,171 @@
+﻿
+@model  ProjectBanDT.Models.SANPHAM
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* product's detail */
+.content__product--detail {
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 15;
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    display: none;
+}
+.content__product--detail-container {
+    /* position: relative;
+    display: flex;
+    background-color: #f3f3f3;
+    width:  100%;
+    height: 520px;
+
+    border-radius: 5px;
+
+    animation: scaleDetail 0.2s linear; */
+    margin-top: 10px;
+    width:100% ;
+    box-shadow: 0 1px 5px #c9c6c6;
+    background-color: var(--white-color);
+    text-decoration: none;
+    display: flex;
+}
+
+.content__product--detail-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.content__product--detail-close:hover {
+    color: grey;
+}
+.content__product--detail-img {
+    padding-top: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
+.content__product--detail-img img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+.content__product--detail-all {
+    flex-basis: 60%;
+    padding: 30px;
+}
+/* .content__product--detail-info {
+} */
+.content__product--detail-info-name {
+    margin: 10px 0 10px 0;
+}
+.content__product--detail-info-price {
+    margin: 30px 0 10px 0;
+}
+.content__product--detail-info-desc {
+    margin: 10px 5px 25px 0;
+    font-size: 16px;
+    
+    
+}
+.content__product--detail-quantity-wrap {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+.content__product--detail-quantity-wrap span{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 2px;
+    /* background-color: red; */
+}
+.content__product--detail-quantity {
+    padding: auto;
+}
+.content__product--detail-quantity-wrap span i {
+    color: lightcoral;
+}
+.content__product--detail-btn {
+    width: 100%;
+    padding: 10px;
+    color: white;
+    background-color:  var(--primary-color);
+
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.content__product--detail-btn:hover {
+    background-color: coral;
+    color: var(--primary-color);
+}
+</style>
+<body>
+    <div class="grid wide">
+        <div class="row">
+            <div class="content__product--detail-container">
+
+                <div style="width: 50%;margin-top: 20px;">
+                    <div class="content__product--detail-img" style="background-image: url(/images/@(Model.HINHANH));">
+                    </div>
+                </div>
+                <div>
+                    <div class="content__product--detail-all">
+                        <div class="content__product--detail-info">
+                            <h1 class="content__product--detail-info-name">@(Model.TENSP)</h1>
+                            <h2 class="content__product--detail-info-price">
+                                <span class="home-product-item__price-old" style="font-size:2rem">@string.Format("{0:N0} VNĐ", Model.GIAGOC)</span>
+                                <span class="home-product-item__price-current" style="font-size:2.2rem">@string.Format("{0:N0} VNĐ", Model.GIA)</span>
+                            </h2>
+                            <p class="content__product--detail-info-desc">  Nếu quý khách mua điện thoại số sỉ thì hãy liên hệ chúng tôi để nhận ưu đãi hấp dân</p>
+                        </div>
+
+                        <form action="/Home/AddToCart" method="post" onsubmit="return validateForm()">
+                            <div class="content__product--detail-quantity-wrap">
+                                <span id="detail-minus"><i class="fa-solid fa-minus"></i></span>
+                                <input class="content__product--detail-quantity" type="number" name="SL" id="SoLuong" value="1" min="1" max="10" style="width:50px; text-align:center; font-size:1.6rem;">
+                                <span id="detail-plus"><i class="fa-solid fa-plus"></i></span>
+                            </div>
+                            <input name="IDSP" value="@Model.ID" hidden />
+                            <button class="content__product--detail-btn">THÊM VÀO GIỎ</button>
+                        </form>
+
+                        <script>
+                            function validateForm() {
+                                var quantityInput = document.getElementById("SoLuong");
+                                var quantity = quantityInput.value;
+                                if (quantity < 1) {
+                                    alert("Số lượng phải lớn hơn hoặc bằng 1.");
+                                    return false; 
+                                }
+                                return true; 
+                            }
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

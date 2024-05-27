@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b327d9210a34151995d47108da7e508" Name="Diagram1" ZoomLevel="68">
+        <EntityTypeShape EntityType="QLDTModel.GIOHANG" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDTModel.HANGSX" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDTModel.SANPHAM" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDTModel.sysdiagram" Width="1.5" PointX="10.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDTModel.TAIKHOAN" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="QLDTModel.FK__GIOHANG__IDSANPH__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDTModel.FK__GIOHANG__IDTAIKH__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDTModel.FK_IDHANG" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QLDTModel.HOADON" Width="1.5" PointX="5.25" PointY="7.75" />
+        <EntityTypeShape EntityType="QLDTModel.TTHOADON" Width="1.5" PointX="7.5" PointY="5.125" />
+        <AssociationConnector Association="QLDTModel.FK__HOADON__IDTAIKHO__04E4BC85" />
+        <AssociationConnector Association="QLDTModel.FK__TTHOADON__IDHOAD__09A971A2" />
+        <AssociationConnector Association="QLDTModel.FK__TTHOADON__IDSANP__08B54D69" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

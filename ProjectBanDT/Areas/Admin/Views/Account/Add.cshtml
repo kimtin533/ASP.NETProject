@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        br {
+            margin: 10px 0;
+        }
+
+        form {
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f7f7f7;
+            width: 600px;
+        }
+
+        .title {
+            width: 200px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        .ipadd {
+            vertical-align: middle;
+            padding: 5px;
+            width: 180px;
+        }
+
+        form > input,
+        form > select {
+            display: inline-block;
+            max-width: 180px;
+            font-size: 14px;
+        }
+
+        select {
+            width: 100%;
+            padding: 5px;
+        }
+
+        input[type="radio"] {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function validateForm() {
+
+            var displayName = document.getElementsByName("DISPLAYNAME")[0].value;
+            var email = document.getElementsByName("USERNAME")[0].value;
+            var password = document.getElementsByName("PASSWORD")[0].value;
+            var confirmPassword = document.getElementsByName("CONFIRM_PASSWORD")[0].value;
+
+            // Kiểm tra email hợp lệ bằng regex
+            var emailRegex = /^[a-zA-Z0-9._-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!email.match(emailRegex)) {
+                alert("Vui lòng nhập địa chỉ email hợp lệ.");
+                return false;
+            }
+
+            // Kiểm tra mật khẩu có ít nhất 6 ký tự
+            if (password.length < 6) {
+                alert("Mật khẩu phải có ít nhất 6 ký tự.");
+                return false;
+            }
+
+            // Kiểm tra xác nhận mật khẩu
+            if (password !== confirmPassword) {
+                alert("Mật khẩu và xác nhận mật khẩu không trùng khớp.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+</head>
+<body>
+    <div class="grid wide">
+        <form action="/Admin/Account/Add" method="post" enctype="multipart/form-data" onsubmit="validateForm()" >
+            <div class="auth-form__form">
+                <div class="auth-form__group" >
+                    <input required class="auth-form__input" name="DISPLAYNAME" placeholder="Họ và Tên" type="text">
+                </div>
+                <div class="auth-form__group">
+                    <input required class="auth-form__input" name="USERNAME" placeholder="Email của bạn" type="text">
+                </div>
+                <div class="auth-form__group">
+                    <input type="radio" name="TYPE" id="user" value="0" checked>User
+                    <input type="radio" name="TYPE" id="admin" value="1">Amin
+                </div>
+                <div class="auth-form__group">
+                    <input required class="auth-form__input" name="PASSWORD" placeholder="Mật khẩu" type="password">
+                </div>
+                <div class="auth-form__group">
+                    <input required class="auth-form__input" name="CONFIRM_PASSWORD" placeholder="Nhập lại mật khẩu" type="password">
+                </div>
+            </div>
+
+            <button style="text-decoration:none; font-size:20px; border: 1px solid #000000; background-color:red; color:white; font-weight:400; border-radius: 8px; height:50px;text-align:center;line-height:30px ;width:200px">
+                Thêm tài khoản
+            </button>
+        </form>
+    </div>
+</body>
+</html>

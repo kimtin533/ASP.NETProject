@@ -1,0 +1,70 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+    @*<link href="~/assets/css/grid.css" type="text/css"/>*@
+</head>
+<body>
+
+    <div class="grid wide">
+        <div class="row" style="margin-top:20px">
+            <a href="/Admin/Bill/" style="text-decoration:none; font-size:20px; border: 1px solid #000000; background-color:red; color:white; font-weight:400; border-radius: 5px; height:30px;text-align:center;line-height:30px ;width:180px">
+                Trờ lại
+            </a>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+
+                </tr>
+                @foreach (var sanPham in ViewBag.DanhSachSanPham)
+                {
+                    <tr>
+                        <td>@sanPham.ID</td>
+                        <td>
+                            <img src="/images/@sanPham.HINHANH" alt="@sanPham.TENSP" style="width:150px"/>
+                        </td>
+                        <td>@sanPham.TENSP</td>
+                        <td>@sanPham.GIA</td>
+                         <!-- Thay SOLUONG bằng trường tương ứng nếu cần -->
+                        
+                    </tr>
+                }
+            </table>
+
+
+        </div>
+    </div>
+
+</body>
+</html>
